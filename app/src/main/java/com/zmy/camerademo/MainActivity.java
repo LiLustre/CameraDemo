@@ -125,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements IPermission {
 
         } catch (Exception e) {
             e.printStackTrace();
+            showNoPremissionTip();
         }
     }
 
