@@ -114,13 +114,18 @@ public class MainActivity extends AppCompatActivity implements IPermission {
     }
 
     private void buildCamera() {
-        previewManager.createCamera(surfaceView);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                previewManager.startCallFrame();
-            }
-        }, 500);
+        try {
+            previewManager.createCamera(surfaceView);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    previewManager.startCallFrame();
+                }
+            }, 500);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

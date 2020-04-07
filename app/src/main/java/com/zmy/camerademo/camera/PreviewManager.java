@@ -39,7 +39,7 @@ public class PreviewManager implements SurfaceHolder.Callback, Camera.PreviewCal
     public PreviewManager(Context context) {
         this.cameraManager = new CameraManager(context);
         this.context = context;
-        decodeHandler = new DecodeHandler(Looper.myLooper(),this);
+        decodeHandler = new DecodeHandler(Looper.myLooper(), this);
     }
 
     /**
@@ -185,7 +185,7 @@ public class PreviewManager implements SurfaceHolder.Callback, Camera.PreviewCal
     /**
      * @param surfaceView 创建相机
      */
-    public void createCamera(SurfaceView surfaceView) {
+    public void createCamera(SurfaceView surfaceView) throws Exception {
         if (!hasSurface) {
             hasSurface = true;
             SurfaceHolder surfaceHolder = surfaceView.getHolder();
@@ -194,7 +194,7 @@ public class PreviewManager implements SurfaceHolder.Callback, Camera.PreviewCal
 
     }
 
-    private void initCamera(SurfaceHolder surfaceHolder) {
+    private void initCamera(SurfaceHolder surfaceHolder) throws Exception {
         if (surfaceHolder == null) {
             throw new IllegalStateException("No SurfaceHolder provided");
         }
@@ -202,12 +202,8 @@ public class PreviewManager implements SurfaceHolder.Callback, Camera.PreviewCal
             Log.w(TAG, "initCamera() while already open -- late SurfaceView callback?");
             return;
         }
-        try {
-            cameraManager.openDriver(surfaceHolder);
-            cameraManager.startPreview();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        cameraManager.openDriver(surfaceHolder);
+        cameraManager.startPreview();
 
     }
 
@@ -251,6 +247,7 @@ public class PreviewManager implements SurfaceHolder.Callback, Camera.PreviewCal
 
     public static class DecodeHandler extends Handler {
         private WeakReference<PreviewManager> previewManager;
+
         public DecodeHandler(Looper looper, PreviewManager previewManager) {
             super(looper);
             this.previewManager = new WeakReference<PreviewManager>(previewManager);
@@ -262,7 +259,7 @@ public class PreviewManager implements SurfaceHolder.Callback, Camera.PreviewCal
             super.handleMessage(msg);
             switch (msg.what) {
                 case CamereHandlerMsgIDs.SCAN_SUCCESS:
-                    if (this.previewManager!=null&&this.previewManager.get()!=null&this.previewManager.get().frameScanSuccessCallback != null) {
+                    if (this.previewManager != null && this.previewManager.get() != null & this.previewManager.get().frameScanSuccessCallback != null) {
                         this.previewManager.get().frameScanSuccessCallback.onScanFrameDecodeResult((String) msg.obj);
                     }
 
