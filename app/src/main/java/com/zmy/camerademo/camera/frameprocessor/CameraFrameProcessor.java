@@ -11,5 +11,5 @@ public interface CameraFrameProcessor {
 
     boolean isLoopCallFrame();
 
-    void onFrameCall(byte[] data, Camera camera, AtomicBoolean isStartCallFrame);
+    void onFrameCall(byte[] data, Camera camera );
 }

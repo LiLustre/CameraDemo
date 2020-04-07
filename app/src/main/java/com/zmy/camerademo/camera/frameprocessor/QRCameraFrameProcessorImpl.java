@@ -65,7 +65,7 @@ public class QRCameraFrameProcessorImpl implements CameraFrameProcessor {
     }
 
     @Override
-    public void onFrameCall(final byte[] data, final Camera camera, AtomicBoolean isStartCallFrame) {
+    public void onFrameCall(final byte[] data, final Camera camera ) {
         QRCodeDecodeThreadPool.addTask(new Runnable() {
             @Override
             public void run() {

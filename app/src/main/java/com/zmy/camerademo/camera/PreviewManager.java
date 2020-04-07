@@ -240,7 +240,7 @@ public class PreviewManager implements SurfaceHolder.Callback, Camera.PreviewCal
                 setOneShotPreview();
             }
             if (cameraFrameProcessor != null) {
-                cameraFrameProcessor.onFrameCall(data, camera, isStartCallFrame);
+                cameraFrameProcessor.onFrameCall(data, camera);
             }
         }
     }
